@@ -36,6 +36,7 @@ useEffect(() => {
   const init = async() => {
     try {
       const web3 = await getWeb3();
+      console.log(web3);
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = FactoryContract.networks[networkId];
       const accounts = await web3.eth.getAccounts();
@@ -44,9 +45,9 @@ useEffect(() => {
         deployedNetwork && deployedNetwork.address,
       );
 
-      setWeb3(web3)
-      setContract(instance)
-      setAccounts(accounts)
+      setWeb3(web3);
+      setContract(instance);
+      setAccounts(accounts);
 
     } catch(error) {
       alert(
@@ -67,10 +68,12 @@ const [ contract, setContract] = useState(null)
 const [ accounts, setAccounts ] = useState(null)
 
 const handleSubmit = async () => {
-  const imageURL = image
-  const url = website
-  const beneficiary = address
-  const currentUser = await web3.currentProvider.selectedAddress
+  const imageURL = image;
+  const url = website;
+  const beneficiary = address;
+
+  console.log(web3);
+  const currentUser = await web3.currentProvider.selectedAddress;
 
   const transaction = await contract.methods.createFundraiser(
     name,
